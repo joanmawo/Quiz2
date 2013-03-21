@@ -2,9 +2,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-float sumRectangulitos();
 float funcion(float x);
-
+float sumRectangulitos(int num_pasos, float h, float a);
 
 int main(int argc, char ** argv){
 
@@ -22,35 +21,32 @@ int main(int argc, char ** argv){
   float respuesta = 0;
   float division = ((b - a)/h);
 
-
-
-  float funcion(float x){
-
-    float temp1 = 0;
-    temp1 = 1/(sqrt(1 + cos(x)*sin(x)));
-    return temp1;
-
-  }
-
-  float sumRectangulitos(){
-  for(i = 0; i < num_pasos; i ++){
-    
-    float rectangulito = 0;
-    rectangulito = h*(funcion(a + i*h));
-    integral += rectangulito;
-  }
-
-  if( (division - num_pasos) != 0){
-    float temp3 = (b - a) - (num_pasos*h);
-    integral += temp3*(funcion(b));
-  }
-  return integral;
-  }
-  
-  respuesta = sumRectangulitos();
+  respuesta = sumRectangulitos(num_pasos, h, a);
   
   printf("%f", respuesta);
 
   return 0;
 
 } 
+
+
+
+float sumRectangulitos(int num_pasos, float h, float a){
+  int i;
+  float rectangulito;
+  float integral;
+  integral = 0;
+  for(i = 0; i < num_pasos; i ++){   
+    rectangulito = h*(funcion(a + i*h));
+    integral += rectangulito;
+  }
+  return integral;
+
+}
+
+float funcion(float x){
+
+    float temp1 = 0;
+    temp1 = 1/(sqrt(1 + cos(x)*sin(x)));
+    return temp1;
+}
